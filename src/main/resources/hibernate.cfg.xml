@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory name="">
+  <!-- Local PostgreSQL-->
+  <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
+  <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+  <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/bitvise2</property>
+  <property name="hibernate.connection.username">postgres</property>
+  <property name="hibernate.connection.password">k0l0</property>
+
+  <property name="hibernate.hbm2ddl.auto">update</property>
+  <property name="hibernate.c3p0.min_size">12</property>
+  <property name="hibernate.c3p0.acquire_increment">12</property>
+  <property name="hibernate.c3p0.max_size">240</property>
+  <property name="hibernate.c3p0.timeout">500</property>
+  <property name="hibernate.c3p0.max_statements">80</property>
+  <property name="hibernate.c3p0.idle_test_period">180</property>
+  <property name="show_sql">false</property>
+
+  <mapping class="com.sf.utils.sla.entity.EventEntry"/>
+ </session-factory>
+</hibernate-configuration>
