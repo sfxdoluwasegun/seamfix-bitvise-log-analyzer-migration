@@ -42,7 +42,7 @@ public class AppLauncher extends NeemClazz {
             System.out.println("Log file does not exist!!");
             return;
         }
-        System.out.println("Log file detected: {}" + logFile.getName());
+        System.out.println("Log file detected: " + logFile.getName());
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(logFile));
