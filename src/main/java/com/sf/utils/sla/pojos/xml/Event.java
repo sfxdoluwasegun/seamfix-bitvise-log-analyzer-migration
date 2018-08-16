@@ -2,13 +2,11 @@ package com.sf.utils.sla.pojos.xml;
 
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 /**
  * @author lash
  */
 @XmlRootElement(name = "event")
-@XmlAccessorType(value = XmlAccessType.FIELD)
 public class Event implements Serializable {
     @XmlAttribute
     private String name;

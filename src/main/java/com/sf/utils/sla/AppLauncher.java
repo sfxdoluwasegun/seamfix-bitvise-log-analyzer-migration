@@ -1,8 +1,13 @@
 package com.sf.utils.sla;
 
+import com.google.gson.Gson;
+import com.sf.utils.sla.entity.EventEntry;
 import com.sf.utils.sla.pojos.AnalyzerObj;
+import com.sf.utils.sla.pojos.xml.Event;
+import com.sf.utils.sla.pojos.xml.EventLog;
 import nw.commons.NeemClazz;
 import nw.commons.StopWatch;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.*;
@@ -17,6 +22,7 @@ import java.util.Date;
 public class AppLauncher extends NeemClazz {
 
     private AppDs appDs;
+    private Gson gsonWriter = new Gson();
 
     public AppLauncher(){
         appDs = AppDs.getInstance();
@@ -45,32 +51,28 @@ public class AppLauncher extends NeemClazz {
         System.out.println("Log file detected: " + logFile.getName());
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(logFile));
-            StringBuffer buffer = new StringBuffer();
-            EventAnalyzer eventAnalyzer = new EventAnalyzer(appDs);
             String serverIP = getServerIP();
+            String fileName = logFile.getName();
             String batch = new SimpleDateFormat("yyyyMMMddHHmmssSSS").format(new Date());
             System.out.println("Current batch: " + batch);
 
-            for(String line; (line = reader.readLine()) != null; ){
-//                System.out.println("==Processing...{}"+ line);
+            //initialize event analyzer
+            EventAnalyzer eventAnalyzer = new EventAnalyzer(appDs);
 
-                //if we encounter an empty line, it means we have come to the end of an event
-                if(StringUtils.isEmpty(line)){
-                    if(buffer.length() > 0){
-                        //process event block
-                        String eventStr = buffer.toString();
-//                        System.out.println("Event string =====>> " + eventStr);
+            //unmarshall file to list of events
+            EventLog log = eventAnalyzer.unmarshal(EventLog.class, FileUtils.readFileToString(logFile));
+            if(log.getEvents() != null){
+                System.out.println("No. of events found: " + log.getEvents().size());
+                for(Event newEvent : log.getEvents()){
+                    EventEntry dbEntry = eventAnalyzer.getEventDbEntry(newEvent);
+                    dbEntry.setLogFileName(fileName);
+                    dbEntry.setServerIP(serverIP);
+                    dbEntry.setBatch(serverIP);
 
-                        AnalyzerObj analyzerObj = new AnalyzerObj(eventStr.trim(), logFile.getName(),serverIP, batch);
-                        eventAnalyzer.processEvent(analyzerObj);
+                    System.out.println("Writing... " + gsonWriter.toJson(dbEntry));
 
-                        //reinitialize buffer
-                        buffer = new StringBuffer();
-                    }
-                }else{
-                    //add string to buffer
-                    buffer.append(line);
+                    //save event to db
+                    appDs.getDbService().create(dbEntry);
                 }
             }
 
