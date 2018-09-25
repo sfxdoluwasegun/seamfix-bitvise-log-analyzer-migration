@@ -62,7 +62,7 @@ public class AppLauncher extends NeemClazz {
                         String eventStr = buffer.toString();
 //                        System.out.println("Event string =====>> " + eventStr);
 
-                        AnalyzerObj analyzerObj = new AnalyzerObj(eventStr.trim(), logFile.getName(),serverIP, batch);
+                        AnalyzerObj analyzerObj = new AnalyzerObj(eventStr.trim(), logFile.getName(),serverIP, batch, logFile.getAbsolutePath());
                         eventAnalyzer.processEvent(analyzerObj);
 
                         //reinitialize buffer

@@ -52,6 +52,7 @@ public class EventAnalyzer extends NeemClazz {
             dbEntry.setLogFileName(analyzerObj.getLogFileName());
             dbEntry.setServerIP(analyzerObj.getServerIP());
             dbEntry.setBatch(analyzerObj.getBatch());
+            dbEntry.setFileDir(analyzerObj.getFileDir());
 
             System.out.println("Writing... " + gsonWriter.toJson(dbEntry));
 

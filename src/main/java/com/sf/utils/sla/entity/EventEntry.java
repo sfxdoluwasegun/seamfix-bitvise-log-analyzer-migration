@@ -68,6 +68,9 @@ public class EventEntry extends BaseEntity {
     @Column(name = "batch")
     private String batch;
 
+    @Column(name = "file_dir")
+    private String fileDir;
+
     public Date getCreateDate() {
         return createDate;
     }
@@ -218,5 +221,13 @@ public class EventEntry extends BaseEntity {
 
     public void setBatch(String batch) {
         this.batch = batch;
+    }
+
+    public String getFileDir() {
+        return fileDir;
+    }
+
+    public void setFileDir(String fileDir) {
+        this.fileDir = fileDir;
     }
 }
