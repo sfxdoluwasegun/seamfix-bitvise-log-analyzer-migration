@@ -22,6 +22,9 @@ public class Event implements Serializable {
     @XmlElement(name = "session")
     private Session session;
 
+    @XmlElement(name = "parameters")
+    private Parameters parameters;
+
     @XmlElement(name = "sfs")
     private Sfs sfs;
 
@@ -74,5 +77,13 @@ public class Event implements Serializable {
 
     public void setError(Error error) {
         this.error = error;
+    }
+
+    public Parameters getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(Parameters parameters) {
+        this.parameters = parameters;
     }
 }

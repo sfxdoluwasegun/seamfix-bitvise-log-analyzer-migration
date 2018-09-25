@@ -71,6 +71,15 @@ public class EventEntry extends BaseEntity {
     @Column(name = "file_dir")
     private String fileDir;
 
+    @Column(name = "remote_address")
+    private String remoteAddress;
+
+    @Column(name="client_version")
+    private String clientVersion;
+
+    @Column(name = "listen_address")
+    private String listenAddress;
+
     public Date getCreateDate() {
         return createDate;
     }
@@ -229,5 +238,29 @@ public class EventEntry extends BaseEntity {
 
     public void setFileDir(String fileDir) {
         this.fileDir = fileDir;
+    }
+
+    public String getRemoteAddress() {
+        return remoteAddress;
+    }
+
+    public void setRemoteAddress(String remoteAddress) {
+        this.remoteAddress = remoteAddress;
+    }
+
+    public String getClientVersion() {
+        return clientVersion;
+    }
+
+    public void setClientVersion(String clientVersion) {
+        this.clientVersion = clientVersion;
+    }
+
+    public String getListenAddress() {
+        return listenAddress;
+    }
+
+    public void setListenAddress(String listenAddress) {
+        this.listenAddress = listenAddress;
     }
 }

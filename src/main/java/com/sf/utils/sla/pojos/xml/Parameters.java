@@ -26,6 +26,12 @@ public class Parameters {
     @XmlAttribute
     private String disconnectReason;
 
+    @XmlAttribute
+    private String listenAddress;
+
+    @XmlAttribute
+    private String clientVersion;
+
     public String getPath() {
         return path;
     }
@@ -64,5 +70,21 @@ public class Parameters {
 
     public void setDisconnectReason(String disconnectReason) {
         this.disconnectReason = disconnectReason;
+    }
+
+    public String getListenAddress() {
+        return listenAddress;
+    }
+
+    public void setListenAddress(String listenAddress) {
+        this.listenAddress = listenAddress;
+    }
+
+    public String getClientVersion() {
+        return clientVersion;
+    }
+
+    public void setClientVersion(String clientVersion) {
+        this.clientVersion = clientVersion;
     }
 }

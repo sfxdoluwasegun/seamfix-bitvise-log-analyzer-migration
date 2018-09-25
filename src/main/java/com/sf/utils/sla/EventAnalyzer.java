@@ -11,11 +11,9 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * @author lash
@@ -24,7 +22,6 @@ public class EventAnalyzer extends NeemClazz {
 
     private AppDs appDs;
     private Gson gsonWriter = new Gson();
-    private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"); //2017-11-15 13:55:18.908973
 
     public EventAnalyzer(AppDs appDs){
         this.appDs = appDs;
@@ -76,6 +73,10 @@ public class EventAnalyzer extends NeemClazz {
             if(newEvent.getSession().getVirtualAccount() != null){
                 entry.setVirtualAccount(newEvent.getSession().getVirtualAccount());
             }
+
+            if(newEvent.getSession().getRemoteAddress() != null){
+                entry.setRemoteAddress(newEvent.getSession().getRemoteAddress());
+            }
         }
 
         if(newEvent.getSfs() != null) {
@@ -121,6 +122,15 @@ public class EventAnalyzer extends NeemClazz {
 
             if(newEvent.getError().getDescription() != null){
                 entry.setErrorDescription(newEvent.getError().getDescription());
+            }
+        }
+
+        if(newEvent.getParameters() != null){
+            if(newEvent.getParameters().getClientVersion() != null){
+                entry.setClientVersion(newEvent.getParameters().getClientVersion());
+            }
+            if(newEvent.getParameters().getListenAddress() != null){
+                entry.setListenAddress(newEvent.getParameters().getListenAddress());
             }
         }
 
